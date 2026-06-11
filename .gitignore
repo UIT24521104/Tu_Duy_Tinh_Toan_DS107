@@ -1,0 +1,18 @@
+# Môi trường ảo Python
+.venv/
+venv/
+env/
+
+# Cache và file biên dịch của Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.py[cod]
+*$py.class
+
+# Thư viện Frontend (Node.js)
+node_modules/
+
+# File chứa biến môi trường (Bảo mật)
+.env
