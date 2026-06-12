@@ -1,52 +1,73 @@
-import { Avatar, Box, Chip, Typography } from "@mui/material";
+import { Avatar, Box, IconButton, Tooltip, Typography } from "@mui/material";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
+import { useColorMode } from "../ColorModeContext";
 
 function AppHeader({ snapshotInfo }) {
+  const { mode, toggle } = useColorMode();
+
   return (
     <Box
       sx={{
         px: { xs: 2, md: 4 },
-        py: 2,
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        py: 1.5,
+        borderBottom: "1px solid",
+        borderColor: "divider",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        bgcolor: "rgba(10,14,19,0.85)",
-        backdropFilter: "blur(12px)",
+        bgcolor: (t) =>
+          t.palette.mode === "dark"
+            ? "rgba(25,25,25,0.8)"
+            : "rgba(255,255,255,0.8)",
+        backdropFilter: "blur(8px)",
         position: "sticky",
         top: 0,
         zIndex: 1100,
       }}
     >
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-        <Chip
-          label="BETA"
-          size="small"
-          sx={{
-            bgcolor: "rgba(34,197,94,0.15)",
-            color: "#22c55e",
-            fontWeight: 700,
-            border: "1px solid rgba(34,197,94,0.25)",
-          }}
-        />
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
         {snapshotInfo && (
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" color="text.secondary" sx={{ fontSize: 13 }}>
             {snapshotInfo}
           </Typography>
         )}
       </Box>
 
-      <Avatar
-        sx={{
-          width: 36,
-          height: 36,
-          bgcolor: "rgba(59,130,246,0.2)",
-          color: "#93c5fd",
-          fontSize: 14,
-          fontWeight: 700,
-        }}
-      >
-        AD
-      </Avatar>
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
+        <Tooltip title={mode === "dark" ? "Chế độ sáng" : "Chế độ tối"}>
+          <IconButton
+            onClick={toggle}
+            size="small"
+            sx={{
+              border: "1px solid",
+              borderColor: "divider",
+              borderRadius: 2,
+              color: "text.secondary",
+              "&:hover": { bgcolor: "action.hover" },
+            }}
+          >
+            {mode === "dark" ? (
+              <LightModeOutlinedIcon fontSize="small" />
+            ) : (
+              <DarkModeOutlinedIcon fontSize="small" />
+            )}
+          </IconButton>
+        </Tooltip>
+
+        <Avatar
+          sx={{
+            width: 32,
+            height: 32,
+            bgcolor: "action.selected",
+            color: "text.primary",
+            fontSize: 13,
+            fontWeight: 600,
+          }}
+        >
+          AD
+        </Avatar>
+      </Box>
     </Box>
   );
 }

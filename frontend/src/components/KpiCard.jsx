@@ -1,61 +1,64 @@
-import { Box, Card, CardContent, Chip, Typography } from "@mui/material";
+import { Box, Card, CardContent, Typography } from "@mui/material";
+import ArrowUpwardOutlinedIcon from "@mui/icons-material/ArrowUpwardOutlined";
+import ArrowDownwardOutlinedIcon from "@mui/icons-material/ArrowDownwardOutlined";
 
-function KpiCard({ icon: Icon, label, value, badge, accent = "#22c55e" }) {
+function DeltaBadge({ delta }) {
+  if (delta == null || !isFinite(delta) || delta === 0) {
+    return (
+      <Typography sx={{ fontSize: 12, color: "text.secondary" }}>—</Typography>
+    );
+  }
+  const up = delta > 0;
+  const color = up ? "success.main" : "error.main";
+  const Icon = up ? ArrowUpwardOutlinedIcon : ArrowDownwardOutlinedIcon;
   return (
-    <Card
-      sx={{
-        height: "100%",
-        position: "relative",
-        overflow: "hidden",
-        "&::before": {
-          content: '""',
-          position: "absolute",
-          top: 0,
-          right: 0,
-          width: 120,
-          height: 120,
-          background: `radial-gradient(circle at top right, ${accent}22 0%, transparent 70%)`,
-        },
-      }}
-    >
-      <CardContent sx={{ p: 2.5 }}>
-        <Box sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}>
+    <Box sx={{ display: "flex", alignItems: "center", gap: 0.25, color }}>
+      <Icon sx={{ fontSize: 14 }} />
+      <Typography sx={{ fontSize: 12, fontWeight: 600 }}>
+        {Math.abs(delta).toFixed(1)}%
+      </Typography>
+    </Box>
+  );
+}
+
+function KpiCard({ icon: Icon, label, value, badge, delta, accent = "#2563eb" }) {
+  return (
+    <Card sx={{ height: "100%" }}>
+      <CardContent sx={{ p: 2.25, "&:last-child": { pb: 2.25 } }}>
+        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", mb: 1.5 }}>
           <Box
             sx={{
-              width: 44,
-              height: 44,
-              borderRadius: 2,
+              width: 32,
+              height: 32,
+              borderRadius: 1.5,
               display: "grid",
               placeItems: "center",
-              bgcolor: `${accent}22`,
+              bgcolor: `${accent}1a`,
               color: accent,
             }}
           >
-            <Icon />
+            <Icon sx={{ fontSize: 18 }} />
           </Box>
-          {badge && (
-            <Chip
-              label={badge}
-              size="small"
-              sx={{
-                height: 24,
-                bgcolor: "rgba(255,255,255,0.06)",
-                color: "text.secondary",
-                border: "1px solid rgba(255,255,255,0.08)",
-              }}
-            />
+          {delta !== undefined ? (
+            <DeltaBadge delta={delta} />
+          ) : (
+            badge && (
+              <Typography sx={{ fontSize: 11.5, color: "text.secondary" }}>
+                {badge}
+              </Typography>
+            )
           )}
         </Box>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 0.5 }}>
+        <Typography sx={{ fontSize: 12.5, color: "text.secondary", mb: 0.25 }}>
           {label}
         </Typography>
         <Typography
-          variant="h4"
           sx={{
             fontWeight: 700,
-            lineHeight: 1.2,
+            lineHeight: 1.25,
+            letterSpacing: "-0.01em",
             wordBreak: "break-word",
-            fontSize: { xs: 24, md: 30 },
+            fontSize: { xs: 18, md: 20 },
           }}
         >
           {value}

@@ -171,11 +171,7 @@ function HomePage() {
                   size="large"
                   onClick={handleAnalyze}
                   disabled={shopsLoading || productsLoading || !shopid || !itemid}
-                  sx={{
-                    py: 1.4,
-                    bgcolor: "#22c55e",
-                    "&:hover": { bgcolor: "#16a34a" },
-                  }}
+                  sx={{ py: 1.25 }}
                 >
                   Phân tích ngay
                 </Button>
@@ -193,17 +189,17 @@ function HomePage() {
                   <CardContent sx={{ display: "flex", gap: 2, alignItems: "flex-start" }}>
                     <Box
                       sx={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 2,
+                        width: 40,
+                        height: 40,
+                        borderRadius: 1.5,
                         display: "grid",
                         placeItems: "center",
-                        bgcolor: "rgba(59,130,246,0.15)",
-                        color: "#60a5fa",
+                        bgcolor: "action.hover",
+                        color: "primary.main",
                         flexShrink: 0,
                       }}
                     >
-                      <Icon />
+                      <Icon fontSize="small" />
                     </Box>
                     <Box>
                       <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>

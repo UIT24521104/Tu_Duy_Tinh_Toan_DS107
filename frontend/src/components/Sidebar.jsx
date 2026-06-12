@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Box,
-  Divider,
   List,
   ListItemButton,
   ListItemIcon,
@@ -16,14 +15,14 @@ import TrendingUpOutlinedIcon from "@mui/icons-material/TrendingUpOutlined";
 
 const sections = [
   {
-    title: "TỔNG QUAN",
+    title: "Tổng quan",
     items: [
       { label: "Chọn sản phẩm", path: "/", icon: ShoppingBagOutlinedIcon },
       { label: "Dashboard", path: "/dashboard", icon: DashboardOutlinedIcon },
     ],
   },
   {
-    title: "PHÂN TÍCH",
+    title: "Phân tích",
     items: [
       { label: "Dự báo engagement", path: "/dashboard", icon: InsightsOutlinedIcon },
       { label: "Xu hướng", path: "/dashboard", icon: TrendingUpOutlinedIcon },
@@ -49,50 +48,50 @@ function Sidebar({ width }) {
         top: 0,
         left: 0,
         height: "100vh",
-        bgcolor: "#0a0e13",
-        borderRight: "1px solid rgba(255,255,255,0.08)",
+        bgcolor: "background.sidebar",
+        borderRight: "1px solid",
+        borderColor: "divider",
         display: "flex",
         flexDirection: "column",
         zIndex: 1200,
       }}
     >
-      <Box sx={{ px: 3, py: 3, display: "flex", alignItems: "center", gap: 1.5 }}>
+      <Box sx={{ px: 2.5, py: 2.5, display: "flex", alignItems: "center", gap: 1.5 }}>
         <Box
           sx={{
-            width: 40,
-            height: 40,
+            width: 34,
+            height: 34,
             borderRadius: 2,
             display: "grid",
             placeItems: "center",
-            bgcolor: "rgba(34,197,94,0.15)",
-            color: "#22c55e",
+            bgcolor: "primary.main",
+            color: "#fff",
           }}
         >
-          <AnalyticsOutlinedIcon />
+          <AnalyticsOutlinedIcon fontSize="small" />
         </Box>
         <Box>
-          <Typography sx={{ fontWeight: 700, fontSize: 18, lineHeight: 1.1 }}>
+          <Typography sx={{ fontWeight: 700, fontSize: 15, lineHeight: 1.1 }}>
             ShopRank AI
           </Typography>
-          <Typography sx={{ fontSize: 12, color: "text.secondary" }}>
+          <Typography sx={{ fontSize: 11.5, color: "text.secondary" }}>
             Shopee Analytics
           </Typography>
         </Box>
       </Box>
 
-      <Divider />
-
-      <Box sx={{ flex: 1, overflowY: "auto", py: 2 }}>
+      <Box sx={{ flex: 1, overflowY: "auto", py: 1 }}>
         {sections.map((section) => (
-          <Box key={section.title} sx={{ mb: 2 }}>
+          <Box key={section.title} sx={{ mb: 1.5 }}>
             <Typography
               sx={{
-                px: 3,
-                pb: 1,
+                px: 2.5,
+                pb: 0.5,
                 fontSize: 11,
-                fontWeight: 700,
-                letterSpacing: "0.08em",
+                fontWeight: 600,
+                letterSpacing: "0.04em",
                 color: "text.secondary",
+                textTransform: "uppercase",
               }}
             >
               {section.title}
@@ -107,22 +106,25 @@ function Sidebar({ width }) {
                     selected={active}
                     onClick={() => navigate(item.path, { state: location.state })}
                     sx={{
-                      mx: 1.5,
-                      mb: 0.5,
+                      mx: 1,
+                      mb: 0.25,
                       borderRadius: 2,
+                      py: 0.6,
+                      color: active ? "text.primary" : "text.secondary",
+                      "&:hover": { bgcolor: "action.hover" },
                       "&.Mui-selected": {
-                        bgcolor: "rgba(245,158,11,0.12)",
-                        border: "1px solid rgba(245,158,11,0.35)",
-                        "& .MuiListItemIcon-root": { color: "#f59e0b" },
+                        bgcolor: "action.selected",
+                        "&:hover": { bgcolor: "action.selected" },
+                        "& .MuiListItemIcon-root": { color: "primary.main" },
                       },
                     }}
                   >
-                    <ListItemIcon sx={{ minWidth: 38, color: "text.secondary" }}>
+                    <ListItemIcon sx={{ minWidth: 32, color: "inherit" }}>
                       <Icon fontSize="small" />
                     </ListItemIcon>
                     <ListItemText
                       primary={item.label}
-                      primaryTypographyProps={{ fontSize: 14, fontWeight: 500 }}
+                      primaryTypographyProps={{ fontSize: 13.5, fontWeight: active ? 600 : 500 }}
                     />
                   </ListItemButton>
                 );
@@ -130,6 +132,12 @@ function Sidebar({ width }) {
             </List>
           </Box>
         ))}
+      </Box>
+
+      <Box sx={{ px: 2.5, py: 2, borderTop: "1px solid", borderColor: "divider" }}>
+        <Typography sx={{ fontSize: 11, color: "text.secondary" }}>
+          DS107 · CatBoost model
+        </Typography>
       </Box>
     </Box>
   );

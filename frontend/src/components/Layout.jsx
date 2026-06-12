@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import Sidebar from "./Sidebar";
 import AppHeader from "./AppHeader";
 
-const SIDEBAR_WIDTH = 260;
+const SIDEBAR_WIDTH = 248;
 
 function Layout({ children, title, subtitle, breadcrumbs, snapshotInfo }) {
   return (
@@ -19,7 +19,7 @@ function Layout({ children, title, subtitle, breadcrumbs, snapshotInfo }) {
         }}
       >
         <AppHeader snapshotInfo={snapshotInfo} />
-        <Box sx={{ px: { xs: 2, md: 4 }, py: 3, flexGrow: 1 }}>
+        <Box sx={{ px: { xs: 2, md: 4 }, py: 3, flexGrow: 1, maxWidth: 1400, width: "100%", mx: "auto" }}>
           {breadcrumbs}
           {title && (
             <Box sx={{ mb: 3 }}>
@@ -27,15 +27,16 @@ function Layout({ children, title, subtitle, breadcrumbs, snapshotInfo }) {
                 component="h1"
                 sx={{
                   m: 0,
-                  fontSize: { xs: 28, md: 34 },
+                  fontSize: { xs: 24, md: 28 },
                   fontWeight: 700,
+                  letterSpacing: "-0.02em",
                   color: "text.primary",
                 }}
               >
                 {title}
               </Box>
               {subtitle && (
-                <Box sx={{ mt: 0.5, color: "text.secondary", fontSize: 15 }}>
+                <Box sx={{ mt: 0.5, color: "text.secondary", fontSize: 14 }}>
                   {subtitle}
                 </Box>
               )}

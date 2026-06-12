@@ -95,7 +95,8 @@ function DashboardPage() {
           variant="outlined"
           startIcon={<ArrowBackOutlinedIcon />}
           onClick={() => navigate("/")}
-          sx={{ borderColor: "rgba(255,255,255,0.15)" }}
+          color="inherit"
+          sx={{ borderColor: "divider", color: "text.secondary" }}
         >
           Chọn sản phẩm khác
         </Button>
@@ -109,13 +110,14 @@ function DashboardPage() {
 
       {loading ? (
         <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", py: 10, gap: 2 }}>
-          <CircularProgress sx={{ color: "#22c55e" }} />
+          <CircularProgress color="primary" />
           <Typography color="text.secondary">Đang tải dashboard và mô hình dự báo...</Typography>
         </Box>
       ) : (
-        <Stack spacing={3}>
+        <Stack spacing={2.5}>
           <SummaryCards
             summary={dashboardData?.summary}
+            charts={dashboardData?.charts}
             snapshotCount={dashboardData?.history?.length || 0}
           />
 
@@ -126,10 +128,10 @@ function DashboardPage() {
           />
 
           <Box>
-            <Typography variant="h5" sx={{ mb: 0.5 }}>
+            <Typography variant="h6" sx={{ mb: 0.25, fontSize: 16 }}>
               Dự báo engagement
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2, fontSize: 13 }}>
               Mô hình CatBoost dự đoán chỉ số a và b cho snapshot tiếp theo, tránh data leakage bằng lag features.
             </Typography>
             <Grid container spacing={2}>
